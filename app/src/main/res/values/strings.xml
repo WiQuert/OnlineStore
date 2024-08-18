@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Online Store</string>
+
+<!-- Bottom menu   -->
+
+    <string name="bottom_menu_1">Main</string>
+    <string name="bottom_menu_2">Catalog</string>
+    <string name="bottom_menu_3">Shops</string>
+    <string name="bottom_menu_4">Cart</string>
+    <string name="bottom_menu_5">Profile</string>
+</resources>

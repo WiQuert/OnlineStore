@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Online Store</string>
+
+    <!-- Нижнее меню   -->
+
+    <string name="bottom_menu_1">Главная</string>
+    <string name="bottom_menu_2">Каталог</string>
+    <string name="bottom_menu_3">Магазины</string>
+    <string name="bottom_menu_4">Корзина</string>
+    <string name="bottom_menu_5">Профиль</string>
+</resources>
