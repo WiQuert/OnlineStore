@@ -4,6 +4,8 @@ package com.example.onlinestore.navigation
 import com.example.onlinestore.R
 
 
+
+
 val BottomNavItems = listOf(
     BottomNavItem(
         title = R.string.bottom_menu_1,
@@ -31,7 +33,6 @@ val BottomNavItems = listOf(
         icon = R.drawable.bottom_menu_5
     ),
 )
-
 
 
 data class BottomNavItem(
