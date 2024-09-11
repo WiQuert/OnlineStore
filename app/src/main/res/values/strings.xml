@@ -8,4 +8,7 @@
     <string name="bottom_menu_3">Shops</string>
     <string name="bottom_menu_4">Cart</string>
     <string name="bottom_menu_5">Profile</string>
+
+
+    <string name="search_text">Search products&#8230;</string>
 </resources>
