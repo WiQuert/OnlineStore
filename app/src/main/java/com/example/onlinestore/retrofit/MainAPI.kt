@@ -4,7 +4,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MainAPI {
-    @GET("product")
+    @GET("product/1")
     suspend fun getProduct(): Product
 
     @GET("products/search")
