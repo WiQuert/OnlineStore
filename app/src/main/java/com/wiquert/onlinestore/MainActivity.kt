@@ -1,4 +1,4 @@
-package com.example.onlinestore
+package com.wiquert.onlinestore
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,13 +21,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.onlinestore.navigation.BottomNavItems
-import com.example.onlinestore.screens.CartScreen
-import com.example.onlinestore.screens.CatalogScreen
-import com.example.onlinestore.screens.HomeScreen
-import com.example.onlinestore.screens.ProfileScreen
-import com.example.onlinestore.screens.ShopsScreen
-import com.example.onlinestore.ui.theme.OnlineStoreTheme
+import com.wiquert.onlinestore.navigation.BottomNavItems
+import com.wiquert.onlinestore.screens.CartScreen
+import com.wiquert.onlinestore.screens.CatalogScreen
+import com.wiquert.onlinestore.screens.HomeScreen
+import com.wiquert.onlinestore.screens.ProfileScreen
+import com.wiquert.onlinestore.screens.ShopsScreen
+import com.wiquert.onlinestore.ui.theme.OnlineStoreTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

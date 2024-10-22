@@ -1,14 +1,15 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kapt)
 }
 
 android {
-    namespace = "com.example.onlinestore"
+    namespace = "com.wiquert.onlinestore"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.onlinestore"
+        applicationId = "com.wiquert.onlinestore"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
@@ -51,6 +52,8 @@ android {
 
 dependencies {
 
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.retrofit2)

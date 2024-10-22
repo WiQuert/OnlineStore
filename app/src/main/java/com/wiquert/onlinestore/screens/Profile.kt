@@ -1,4 +1,4 @@
-package com.example.onlinestore.screens
+package com.wiquert.onlinestore.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,14 +10,14 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun CatalogScreen() {
+fun ProfileScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = "Catalog Screen",
+            text = "Profile Screen",
             fontSize = 24.sp
         )
     }

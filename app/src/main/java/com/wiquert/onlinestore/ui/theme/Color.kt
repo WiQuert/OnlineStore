@@ -1,4 +1,4 @@
-package com.example.onlinestore.ui.theme
+package com.wiquert.onlinestore.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

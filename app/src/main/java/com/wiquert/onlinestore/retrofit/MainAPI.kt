@@ -1,4 +1,4 @@
-package com.example.onlinestore.retrofit
+package com.wiquert.onlinestore.retrofit
 
 import retrofit2.http.GET
 import retrofit2.http.Query

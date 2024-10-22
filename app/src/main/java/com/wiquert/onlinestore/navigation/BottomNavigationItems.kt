@@ -1,7 +1,7 @@
-package com.example.onlinestore.navigation
+package com.wiquert.onlinestore.navigation
 
 
-import com.example.onlinestore.R
+import com.wiquert.onlinestore.R
 
 
 

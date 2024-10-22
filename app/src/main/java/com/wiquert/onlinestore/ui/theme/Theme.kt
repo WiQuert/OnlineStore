@@ -1,6 +1,5 @@
-package com.example.onlinestore.ui.theme
+package com.wiquert.onlinestore.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

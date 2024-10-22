@@ -1,4 +1,4 @@
-package com.example.onlinestore.retrofit
+package com.wiquert.onlinestore.retrofit
 
 data class Product(
     val id: Int,

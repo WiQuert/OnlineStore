@@ -1,4 +1,4 @@
-package com.example.onlinestore.screens
+package com.wiquert.onlinestore.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,8 +15,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.onlinestore.R
-import com.example.onlinestore.retrofit.mainApi
+import com.wiquert.onlinestore.R
+import com.wiquert.onlinestore.retrofit.mainApi
 import kotlinx.coroutines.launch
 
 

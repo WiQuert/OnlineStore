@@ -1,4 +1,4 @@
-package com.example.onlinestore
+package com.wiquert.onlinestore
 
 import org.junit.Test
 
