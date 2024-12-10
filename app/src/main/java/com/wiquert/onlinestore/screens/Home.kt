@@ -1,8 +1,11 @@
 package com.wiquert.onlinestore.screens
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
@@ -71,10 +74,16 @@ fun HomeScreen() {
 fun GetSingleProduct() {
     val coroutineScope = rememberCoroutineScope()
     val testproduct = remember { mutableStateOf("") }
+    val testproductdesc = remember { mutableStateOf("") }
     LaunchedEffect(key1 = Unit) {
         coroutineScope.launch() {
             testproduct.value = mainApi.getProduct().title
+            testproductdesc.value = mainApi.getProduct().description
         }
    }
-    Text(text = testproduct.value)
+    Column {
+        Text(text = testproduct.value)
+        Spacer(modifier = Modifier.width(5.dp))
+        Text(text = testproductdesc.value)
+    }
 }
