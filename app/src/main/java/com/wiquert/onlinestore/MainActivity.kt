@@ -28,7 +28,9 @@ import com.wiquert.onlinestore.screens.HomeScreen
 import com.wiquert.onlinestore.screens.ProfileScreen
 import com.wiquert.onlinestore.screens.ShopsScreen
 import com.wiquert.onlinestore.ui.theme.OnlineStoreTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

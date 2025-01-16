@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.wiquert.onlinestore.R
-import com.wiquert.onlinestore.retrofit.mainApi
 import kotlinx.coroutines.launch
 
 
@@ -75,12 +74,12 @@ fun GetSingleProduct() {
     val coroutineScope = rememberCoroutineScope()
     val testproduct = remember { mutableStateOf("") }
     val testproductdesc = remember { mutableStateOf("") }
-    LaunchedEffect(key1 = Unit) {
-        coroutineScope.launch() {
-            testproduct.value = mainApi.getProduct().title
-            testproductdesc.value = mainApi.getProduct().description
-        }
-   }
+//    LaunchedEffect(key1 = Unit) {
+//        coroutineScope.launch() {
+//            testproduct.value = mainApi.getProduct().title
+//            testproductdesc.value = mainApi.getProduct().description
+//        }
+//   }
     Column {
         Text(text = testproduct.value)
         Spacer(modifier = Modifier.width(5.dp))

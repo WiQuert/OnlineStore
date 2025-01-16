@@ -3,7 +3,7 @@ package com.wiquert.onlinestore.retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MainAPI {
+interface MainApi {
     @GET("product/41")
     suspend fun getProduct(): Product
 
