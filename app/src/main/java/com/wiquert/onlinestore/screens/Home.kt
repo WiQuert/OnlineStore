@@ -25,8 +25,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.wiquert.onlinestore.R
 import com.wiquert.onlinestore.retrofit.MainApi
+import com.wiquert.onlinestore.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
 
@@ -78,24 +80,16 @@ fun HomeScreen() {
 
 
 @Composable
-fun GetSingleProduct() {
-//    val coroutineScope = rememberCoroutineScope()
-//    val name = remember { mutableStateOf("") }
-//    val description = remember { mutableStateOf("") }
-////    LaunchedEffect(key1 = Unit) {
-////        coroutineScope.launch() {
-////            name.value = mainApi.getProduct().title
-////            description.value = mainApi.getProduct().description
-////        }
-////   }
+fun GetSingleProduct(viewModel: MainViewModel = hiltViewModel()) {
     Column(modifier = Modifier
         .fillMaxWidth()
         .fillMaxSize(0.5f)
-        .padding(start = 5.dp, end = 5.dp, top = 15.dp)
-        .background(color = Color.Red),
+        .padding(start = 5.dp, end = 5.dp, top = 15.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "name.value", fontSize = 18.sp)
+        Text(text = viewModel.name.value, fontSize = 18.sp)
         Spacer(Modifier.size(15.dp))
-        Text(text = "description.value")
+        Text(text = viewModel.description.value)
+        Spacer(Modifier.size(15.dp))
+        Text(text = "Total price: ${viewModel.price.value} USD")
     }
 }

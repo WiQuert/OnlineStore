@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.wiquert.onlinestore"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.wiquert.onlinestore"
