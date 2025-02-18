@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wiquert.onlinestore.retrofit.MainApi
+import com.wiquert.onlinestore.retrofit.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,9 +17,12 @@ class MainViewModel @Inject constructor(private val mainApi: MainApi) : ViewMode
     val price = mutableStateOf("")
     init {
         viewModelScope.launch(Dispatchers.IO) {
-        name.value = mainApi.getProduct().title
-        description.value = mainApi.getProduct().description
-        price.value = mainApi.getProduct().price.toString()
+            val allProductsList : List<Product> = mainApi.getAllProducts().products
+            for (eachProduct in allProductsList) {
+                name.value = eachProduct.title
+                description.value = eachProduct.description
+                price.value = eachProduct.price.toString()
+            }
         }
     }
 }

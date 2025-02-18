@@ -3,6 +3,7 @@ package com.wiquert.onlinestore.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -27,6 +28,7 @@ import com.wiquert.onlinestore.screens.ProfileScreen
 import com.wiquert.onlinestore.screens.ShopsScreen
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigation() {
     val navController = rememberNavController()
