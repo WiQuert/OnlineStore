@@ -1,5 +1,7 @@
 package com.wiquert.onlinestore.viewmodel
 
+import android.util.Log
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,17 +14,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val mainApi: MainApi) : ViewModel() {
-    val name = mutableStateOf("")
-    val description = mutableStateOf("")
-    val price = mutableStateOf("")
+
+    private val _products = mutableStateOf<List<Product>>(emptyList())
+    val products: State<List<Product>> = _products
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val allProductsList : List<Product> = mainApi.getAllProducts().products
-            for (eachProduct in allProductsList) {
-                name.value = eachProduct.title
-                description.value = eachProduct.description
-                price.value = eachProduct.price.toString()
-            }
+            _products.value = allProductsList
         }
     }
 }
