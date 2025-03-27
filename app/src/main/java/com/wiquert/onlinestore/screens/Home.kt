@@ -1,5 +1,6 @@
 package com.wiquert.onlinestore.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,30 +21,45 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
+import com.wiquert.onlinestore.R
 import com.wiquert.onlinestore.viewmodel.MainViewModel
 
 
 @ExperimentalMaterial3Api
 @Composable
 fun HomeScreen() {
-        Scaffold (
+    Column(modifier = Modifier
+        .fillMaxSize(),
+        ) {
+        Image(modifier = Modifier
+            .size(235.dp,60.dp)
+            .align(Alignment.CenterHorizontally),
+            imageVector = ImageVector.vectorResource(R.drawable.logo_online_store),
+            contentDescription = "logo"
+        )
+        Scaffold(
             topBar = {
                 HomeSearchBar()
-            }
+            },
         )
         { innerPadding ->
-            Column (modifier = Modifier
-                .fillMaxWidth()
-                .padding(innerPadding)
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(innerPadding)
             ) {
-                    ShowInterestingProducts()
-                }
+                Text(modifier = Modifier.fillMaxWidth(), text = "Может быть интересно")
+                ShowInterestingProducts()
+            }
         }
+    }
 
 }
 
@@ -98,7 +114,6 @@ fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel()) {
     val interestingProduct = viewModel.interestingProducts.value
     LazyColumn(modifier = Modifier
         .fillMaxSize()
-//        .fillMaxSize(0.8f)
         .padding(start = 5.dp, end = 5.dp, top = 10.dp, bottom = 5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {

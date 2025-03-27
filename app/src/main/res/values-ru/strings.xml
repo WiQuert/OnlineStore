@@ -8,5 +8,6 @@
     <string name="bottom_menu_3">Магазины</string>
     <string name="bottom_menu_4">Корзина</string>
     <string name="bottom_menu_5">Профиль</string>
-    <string name="search_text">Поиск товаров&#8230;</string>
+    <string name="mainscreen_welcome">Добро пожаловать в Универсальный Онлайн Магазин</string>
+    <string name="mainscreen_search_text">Поиск товаров&#8230;</string>
 </resources>

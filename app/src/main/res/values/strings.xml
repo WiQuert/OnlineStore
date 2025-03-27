@@ -9,6 +9,8 @@
     <string name="bottom_menu_4">Cart</string>
     <string name="bottom_menu_5">Profile</string>
 
+ <!-- Home Screen -->
 
-    <string name="search_text">Search products&#8230;</string>
+    <string name="mainscreen_welcome">Welcome to the Universal Online Store</string>
+    <string name="mainscreen_search_text">Search products&#8230;</string>
 </resources>
