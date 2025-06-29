@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -134,8 +136,8 @@ fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel(), navContr
     val interestingProduct = viewModel.interestingProducts.value
     LazyRow(modifier = Modifier
         .fillMaxSize()
-        .padding(start = 5.dp, end = 5.dp, top = 10.dp, bottom = 5.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        .padding(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 5.dp),
+        horizontalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         items(interestingProduct) {item ->
             Card(modifier = Modifier
@@ -143,13 +145,17 @@ fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel(), navContr
                     navController.navigate("product/${item.id}")
                 }
                 .width(LocalConfiguration.current.screenWidthDp.dp * 0.8f)
-                .height(LocalConfiguration.current.screenHeightDp.dp * 0.3f)
+                .height(LocalConfiguration.current.screenHeightDp.dp * 0.35f)
             ) {
                 Column(modifier = Modifier
-                    .padding(5.dp)) {
+                    .fillMaxHeight()
+                    .padding(5.dp),
+                    verticalArrangement = Arrangement.SpaceBetween) {
                     Text(modifier = Modifier
                         .align(Alignment.CenterHorizontally),
                         text = item.title,
+                        maxLines = 2,
+                        minLines = 2,
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold)
                     AsyncImage(
@@ -158,9 +164,16 @@ fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel(), navContr
                         contentDescription = null,
                     )
                     Spacer(Modifier.size(15.dp))
-                    Text(text = item.description)
+                    Text(
+                        text = item.description,
+                        maxLines = 2,
+                        minLines = 2,
+                        overflow = TextOverflow.Ellipsis)
                     Spacer(Modifier.size(15.dp))
-                    Text(text = "Total price: $${item.price}")
+                    Text(
+                        text = "Total price: $${item.price}",
+                        fontWeight = FontWeight.SemiBold
+                    )
                        }
                 }
         }
