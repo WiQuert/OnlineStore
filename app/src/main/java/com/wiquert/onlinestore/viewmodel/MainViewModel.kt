@@ -1,6 +1,5 @@
 package com.wiquert.onlinestore.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -17,7 +16,7 @@ class MainViewModel @Inject constructor(private val mainApi: MainApi) : ViewMode
 
     private val _products = mutableStateOf<List<Product>>(emptyList())
     private val _interestingProducts = mutableStateOf<List<Product>>(emptyList())
-    val products: State<List<Product>> = _products
+    private val allProducts: State<List<Product>> = _products
     val interestingProducts: State<List<Product>> = _interestingProducts
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -25,5 +24,11 @@ class MainViewModel @Inject constructor(private val mainApi: MainApi) : ViewMode
             _products.value = allProductsList
             _interestingProducts.value = allProductsList.shuffled().take(15)
         }
+    }
+
+    fun getProductById(id: Int): Product? {
+        val products = allProducts.value
+        val currentProduct = products.find { product -> product.id == id }
+        return currentProduct
     }
 }

@@ -24,6 +24,7 @@ import com.wiquert.onlinestore.R
 import com.wiquert.onlinestore.screens.CartScreen
 import com.wiquert.onlinestore.screens.CatalogScreen
 import com.wiquert.onlinestore.screens.HomeScreen
+import com.wiquert.onlinestore.screens.ProductDetailScreen
 import com.wiquert.onlinestore.screens.ProfileScreen
 import com.wiquert.onlinestore.screens.ShopsScreen
 
@@ -75,7 +76,7 @@ fun BottomNavigation() {
             startDestination = BottomNavItems[0].route
         ) {
             composable(BottomNavItems[0].route) {
-                HomeScreen()
+                HomeScreen(navController)
             }
             composable(BottomNavItems[1].route) {
                 CatalogScreen()
@@ -89,9 +90,19 @@ fun BottomNavigation() {
             composable(BottomNavItems[4].route) {
                 ProfileScreen()
             }
+
+            composable("product/{productId}") { backStackEntry ->
+                val productId = backStackEntry.arguments?.getString("productId")?.toIntOrNull()
+                if (productId != null) {
+                    ProductDetailScreen(productId = productId)
+                } else {
+                    Text("Неверный ID товара")
+                }
+            }
+            }
         }
     }
-}
+
 
 
 val BottomNavItems = listOf(
