@@ -14,6 +14,12 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val mainApi: MainApi) : ViewModel() {
 
+    // search products
+    val searchQuery = mutableStateOf("")
+    val searchResults = mutableStateOf<List<Product>>(emptyList())
+    val isSearching = mutableStateOf(false)
+
+
     private val _products = mutableStateOf<List<Product>>(emptyList())
     private val _interestingProducts = mutableStateOf<List<Product>>(emptyList())
     private val allProducts: State<List<Product>> = _products
