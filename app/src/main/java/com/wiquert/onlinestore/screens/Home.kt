@@ -3,6 +3,7 @@ package com.wiquert.onlinestore.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -12,9 +13,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
@@ -102,6 +105,8 @@ fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltV
                 },
                 onSearch = {
                     isActive.value = false
+                    viewModel.searchQuery.value =""
+                    viewModel.searchResults.value = emptyList()
                 },
                 placeholder = {
                     Text(stringResource(R.string.mainscreen_search_text_hint))
@@ -114,7 +119,48 @@ fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltV
         },
     )
     {
-        Text("Coming soon")
+        when {
+            isLoading -> {
+                Box(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+            results.isEmpty() -> {
+                Text (modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    text = stringResource(R.string.mainscreen_search_text_nothing),
+                )
+                }
+            else -> {
+                LazyColumn {
+                    items(results) { product ->
+                        Column(
+                            modifier = Modifier
+                                .clickable {
+                                    isActive.value = false
+                                    viewModel.searchQuery.value = ""
+                                    navController.navigate("product/${product.id}")
+                                }
+                                .fillMaxWidth()
+                                .padding(12.dp)
+                        ) {
+                            Text(
+                                text = product.title,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                }
+            }
+
+            }
+        }
     }
 }
 

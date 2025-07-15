@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -43,7 +44,10 @@ fun BottomNavigation() {
                 BottomNavItems.forEach { bottomNavItem ->
                     NavigationBarItem(
                         label = {
-                            Text(text = stringResource(id = bottomNavItem.title))
+                            Text(
+                                text = stringResource(id = bottomNavItem.title),
+                                fontSize = 10.sp
+                            )
                         },
                         icon = {
                             Icon(

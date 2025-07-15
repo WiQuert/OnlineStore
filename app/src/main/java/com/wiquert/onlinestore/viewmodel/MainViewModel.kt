@@ -50,7 +50,10 @@ class MainViewModel @Inject constructor(private val mainApi: MainApi) : ViewMode
             isSearching.value = true
             try {
                 val result = mainApi.getProductsInSearch(query)
-                searchResults.value = result.products
+                val filtered = result.products.filter {
+                    it.title.contains(query, ignoreCase = true)
+                }
+                searchResults.value = filtered
             }
             catch (e: Exception) {
                 searchResults.value = emptyList()

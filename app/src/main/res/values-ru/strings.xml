@@ -11,5 +11,6 @@
     <string name="mainscreen_welcome">Добро пожаловать в Универсальный Онлайн Магазин</string>
     <string name="mainscreen_search_text">Поиск товаров&#8230;</string>
     <string name="mainscreen_search_text_hint">Введите ваш запрос здесь</string>
+    <string name="mainscreen_search_text_nothing">Ничего не найдено</string>
     <string name="mainscreen_interesting_products">Это может вас заинтересовать</string>
 </resources>

@@ -8,8 +8,10 @@ interface MainApi {
     suspend fun getProduct(): Product
 
     @GET("products/search")
-    suspend fun getProductsInSearch(@Query("q") name: String): Products
+    suspend fun getProductsInSearch(
+        @Query("q") name: String,
+        @Query("limit") limit: Int = 0): Products
 
     @GET("products")
-    suspend fun getAllProducts(): Products
+    suspend fun getAllProducts(@Query("limit") limit: Int = 0): Products
 }
