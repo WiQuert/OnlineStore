@@ -32,9 +32,32 @@ class MainViewModel @Inject constructor(private val mainApi: MainApi) : ViewMode
         }
     }
 
+
     fun getProductById(id: Int): Product? {
         val products = allProducts.value
         val currentProduct = products.find { product -> product.id == id }
         return currentProduct
+    }
+
+    // searchBar
+    fun searchProducts(query: String) {
+        searchQuery.value = query
+        if (query.isBlank()) {
+            searchResults.value = emptyList()
+        }
+
+        viewModelScope.launch {
+            isSearching.value = true
+            try {
+                val result = mainApi.getProductsInSearch(query)
+                searchResults.value = result.products
+            }
+            catch (e: Exception) {
+                searchResults.value = emptyList()
+            }
+            finally {
+                isSearching.value = false
+            }
+        }
     }
 }

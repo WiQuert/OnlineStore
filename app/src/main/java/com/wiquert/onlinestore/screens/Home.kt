@@ -56,7 +56,7 @@ fun HomeScreen(navController: NavController) {
         )
         Scaffold(
             topBar = {
-                HomeSearchBar()
+                HomeSearchBar(navController = navController)
             },
         )
         { innerPadding ->
@@ -76,15 +76,15 @@ fun HomeScreen(navController: NavController) {
 
 @Composable
 @ExperimentalMaterial3Api
-fun HomeSearchBar() {
+fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltViewModel()) {
 
-    val searchText = remember {
-        mutableStateOf("")
-    }
-
+    val searchText = viewModel.searchQuery
     val isActive = remember {
         mutableStateOf(false)
     }
+    val results = viewModel.searchResults.value
+    val isLoading = viewModel.isSearching.value
+
 
     SearchBar(
         modifier = Modifier
@@ -94,7 +94,7 @@ fun HomeSearchBar() {
             SearchBarDefaults.InputField(
                 query = searchText.value,
                 onQueryChange = { text ->
-                    searchText.value = text
+                    viewModel.searchProducts(text)
                 },
                 expanded = isActive.value,
                 onExpandedChange = { value ->
@@ -104,7 +104,7 @@ fun HomeSearchBar() {
                     isActive.value = false
                 },
                 placeholder = {
-                    Text("Type your search here")
+                    Text(stringResource(R.string.mainscreen_search_text_hint))
                 }
             )
         },
@@ -131,6 +131,7 @@ fun HeaderText(text: String) {
     )
 }
 
+// section "this might be interesting"
 @Composable
 fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel(), navController: NavController) {
     val interestingProduct = viewModel.interestingProducts.value

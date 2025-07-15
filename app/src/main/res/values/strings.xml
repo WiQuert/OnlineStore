@@ -13,5 +13,6 @@
 
     <string name="mainscreen_welcome">Welcome to the Universal Online Store</string>
     <string name="mainscreen_search_text">Search products&#8230;</string>
+    <string name="mainscreen_search_text_hint">Type your search here</string>
     <string name="mainscreen_interesting_products">This might be interesting</string>
 </resources>
