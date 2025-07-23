@@ -98,7 +98,7 @@ fun BottomNavigation() {
             composable("product/{productId}") { backStackEntry ->
                 val productId = backStackEntry.arguments?.getString("productId")?.toIntOrNull()
                 if (productId != null) {
-                    ProductDetailScreen(productId = productId)
+                    ProductDetailScreen(productId = productId, navController)
                 } else {
                     Text("Неверный ID товара")
                 }

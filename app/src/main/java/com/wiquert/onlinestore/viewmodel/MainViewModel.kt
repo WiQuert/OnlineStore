@@ -22,7 +22,7 @@ class MainViewModel @Inject constructor(private val mainApi: MainApi) : ViewMode
 
     private val _products = mutableStateOf<List<Product>>(emptyList())
     private val _interestingProducts = mutableStateOf<List<Product>>(emptyList())
-    private val allProducts: State<List<Product>> = _products
+    val allProducts: State<List<Product>> = _products
     val interestingProducts: State<List<Product>> = _interestingProducts
     init {
         viewModelScope.launch(Dispatchers.IO) {
