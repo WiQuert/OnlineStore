@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.androidx.navigation)
-    implementation(libs.androidx.navigation)
+    implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

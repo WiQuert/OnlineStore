@@ -16,6 +16,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,6 +28,7 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -48,43 +53,67 @@ import com.wiquert.onlinestore.viewmodel.MainViewModel
 @ExperimentalMaterial3Api
 @Composable
 fun HomeScreen(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize(),
-        ) {
-        Image(modifier = Modifier
-            .size(235.dp,60.dp)
-            .align(Alignment.CenterHorizontally),
-            imageVector = ImageVector.vectorResource(R.drawable.logo_online_store),
-            contentDescription = "logo"
-        )
+    val isSearchActive = remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
+
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        if (!isSearchActive.value) {
+            Image(
+                modifier = Modifier
+                    .size(235.dp, 60.dp)
+                    .align(Alignment.CenterHorizontally),
+                imageVector = ImageVector.vectorResource(R.drawable.logo_online_store),
+                contentDescription = "logo"
+            )
+        }
         Scaffold(
             topBar = {
-                HomeSearchBar(navController = navController)
-            },
-        )
-        { innerPadding ->
+                HomeSearchBar(
+                    navController = navController,
+                    isActive = isSearchActive
+                )
+            }
+        ) { innerPadding ->
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
                     .padding(innerPadding)
             ) {
                 HeaderText(stringResource(id = R.string.mainscreen_interesting_products))
-                ShowInterestingProducts(navController = navController)
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .width(LocalConfiguration.current.screenWidthDp.dp * 0.8f)
+                        .height(LocalConfiguration.current.screenHeightDp.dp * 0.35f)
+                ){
+                    ShowInterestingProducts(navController = navController)
+                }
+                HeaderText("Slider")
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .width(LocalConfiguration.current.screenWidthDp.dp * 0.8f)
+                        .height(LocalConfiguration.current.screenHeightDp.dp * 0.35f)
+                ) {
+                    ProductSlider(navController = navController)
+                }
             }
         }
     }
-
 }
+
 
 
 @Composable
 @ExperimentalMaterial3Api
-fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltViewModel()) {
+fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltViewModel(), isActive: MutableState<Boolean>) {
 
     val searchText = viewModel.searchQuery
-    val isActive = remember {
-        mutableStateOf(false)
-    }
+
+
     val results = viewModel.searchResults.value
     val isLoading = viewModel.isSearching.value
 
@@ -167,6 +196,7 @@ fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltV
 
 @Composable
 fun HeaderText(text: String) {
+    Spacer(modifier = Modifier.height(5.dp))
     Text(modifier = Modifier.fillMaxWidth()
         .padding(top = 12.dp, bottom = 4.dp),
         text = text,
@@ -175,6 +205,7 @@ fun HeaderText(text: String) {
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.Bold
     )
+    Spacer(modifier = Modifier.height(5.dp))
 }
 
 // section "this might be interesting"
@@ -223,6 +254,39 @@ fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel(), navContr
                     )
                        }
                 }
+        }
+    }
+}
+
+
+// section "slider"
+@Composable
+fun ProductSlider(viewModel: MainViewModel = hiltViewModel(), navController: NavController) {
+    val productsSlider = listOf(5,15,21,25).mapNotNull { ids ->
+        viewModel.getProductById(ids)
+    }
+    val sliderState = rememberPagerState(pageCount = { productsSlider.size })
+
+
+    HorizontalPager(
+        state = sliderState,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(220.dp),
+            ) { element ->
+        val product = productsSlider[element]
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable {
+                    navController.navigate("product/${product.id}")
+                }
+        ) {
+            AsyncImage(
+                model = product.thumbnail,
+                contentDescription = product.title,
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
 }
