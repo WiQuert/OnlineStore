@@ -1,10 +1,12 @@
 package com.wiquert.onlinestore.navigation
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -75,7 +77,8 @@ fun BottomNavigation() {
         NavHost(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
+                .padding(innerPadding)
+                .background(MaterialTheme.colorScheme.background),
             navController = navController,
             startDestination = BottomNavItems[0].route
         ) {
