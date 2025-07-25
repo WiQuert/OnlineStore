@@ -28,6 +28,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -37,7 +38,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -58,7 +61,7 @@ fun HomeScreen(navController: NavController) {
     val isSearchActive = remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
 
-    Column(
+     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         if (!isSearchActive.value) {
@@ -109,6 +112,7 @@ fun HomeScreen(navController: NavController) {
 
 
 
+//SearchBar
 @Composable
 @ExperimentalMaterial3Api
 fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltViewModel(), isActive: MutableState<Boolean>) {
@@ -120,88 +124,98 @@ fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltV
     val isLoading = viewModel.isSearching.value
 
 
-    SearchBar(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 10.dp)
-            .background(MaterialTheme.colorScheme.background),
-        inputField = {
-            SearchBarDefaults.InputField(
-                query = searchText.value,
-                onQueryChange = { text ->
-                    viewModel.searchProducts(text)
-                },
-                expanded = isActive.value,
-                onExpandedChange = { value ->
-                    isActive.value = value
-                },
-                onSearch = {
-                    isActive.value = false
-                    viewModel.searchQuery.value =""
-                    viewModel.searchResults.value = emptyList()
-                },
-                placeholder = {
-                    Text(stringResource(R.string.mainscreen_search_text_hint))
-                }
-            )
-        },
-        expanded = isActive.value,
-        onExpandedChange = { value ->
-            isActive.value = value
-        },
-    )
-    {
-        when {
-            isLoading -> {
-                Box(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
-            results.isEmpty() -> {
-                Text (modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    text = stringResource(R.string.mainscreen_search_text_nothing),
-                )
-                }
-            else -> {
-                LazyColumn {
-                    items(results) { product ->
-                        Column(
-                            modifier = Modifier
-                                .clickable {
-                                    isActive.value = false
-                                    viewModel.searchQuery.value = ""
-                                    navController.navigate("product/${product.id}")
-                                }
-                                .fillMaxWidth()
-                                .padding(12.dp)
-                        ) {
-                            Text(
-                                text = product.title,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-                }
-            }
 
+        SearchBar(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
+                .background(MaterialTheme.colorScheme.background),
+            colors = SearchBarDefaults.colors(
+                containerColor = MaterialTheme.colorScheme.primary),
+            inputField = {
+                SearchBarDefaults.InputField(
+                    query = searchText.value,
+                    onQueryChange = { text ->
+                        viewModel.searchProducts(text)
+                    },
+                    expanded = isActive.value,
+                    onExpandedChange = { value ->
+                        isActive.value = value
+                    },
+                    onSearch = {
+                        isActive.value = false
+                        viewModel.searchQuery.value = ""
+                        viewModel.searchResults.value = emptyList()
+                    },
+                    placeholder = {
+                        Text(
+                            stringResource(R.string.mainscreen_search_text_hint))
+                    }
+                )
+            },
+            expanded = isActive.value,
+            onExpandedChange = { value ->
+                isActive.value = value
+            },
+        )
+        {
+            when {
+                isLoading -> {
+                    Box(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+
+                results.isEmpty() -> {
+                    Text(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        textAlign = TextAlign.Center,
+                        text = stringResource(R.string.mainscreen_search_text_nothing),
+                    )
+                }
+
+                else -> {
+                    LazyColumn {
+                        items(results) { product ->
+                            Column(
+                                modifier = Modifier
+                                    .clickable {
+                                        isActive.value = false
+                                        viewModel.searchQuery.value = ""
+                                        navController.navigate("product/${product.id}")
+                                    }
+                                    .fillMaxWidth()
+                                    .padding(12.dp)
+                            ) {
+                                Text(
+                                    text = product.title,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+                    }
+
+                }
             }
         }
     }
-}
 
 
+
+//Headers
 @Composable
 fun HeaderText(text: String) {
     Spacer(modifier = Modifier.height(5.dp))
     Text(modifier = Modifier.fillMaxWidth()
-        .padding(top = 12.dp, bottom = 4.dp),
+        .padding(top = 12.dp, bottom = 12.dp),
         text = text,
         color = Color(0xFF326BCE),
         fontSize = 26.sp,
@@ -210,6 +224,7 @@ fun HeaderText(text: String) {
     )
     Spacer(modifier = Modifier.height(5.dp))
 }
+
 
 // section "this might be interesting"
 @Composable
@@ -229,6 +244,7 @@ fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel(), navContr
                 .height(LocalConfiguration.current.screenHeightDp.dp * 0.35f)
             ) {
                 Column(modifier = Modifier
+                    .background(MaterialTheme.colorScheme.primary)
                     .fillMaxHeight()
                     .padding(5.dp),
                     verticalArrangement = Arrangement.SpaceBetween) {
@@ -265,7 +281,7 @@ fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel(), navContr
 // section "slider"
 @Composable
 fun ProductSlider(viewModel: MainViewModel = hiltViewModel(), navController: NavController) {
-    val productsSlider = listOf(5,15,21,25).mapNotNull { ids ->
+    val productsSlider = listOf(96,96,96,96).mapNotNull { ids ->
         viewModel.getProductById(ids)
     }
     val sliderState = rememberPagerState(pageCount = { productsSlider.size })
@@ -275,7 +291,6 @@ fun ProductSlider(viewModel: MainViewModel = hiltViewModel(), navController: Nav
         state = sliderState,
         modifier = Modifier
             .fillMaxWidth()
-            .height(220.dp),
             ) { element ->
         val product = productsSlider[element]
         Box(
@@ -285,11 +300,27 @@ fun ProductSlider(viewModel: MainViewModel = hiltViewModel(), navController: Nav
                     navController.navigate("product/${product.id}")
                 }
         ) {
-            AsyncImage(
-                model = product.thumbnail,
-                contentDescription = product.title,
-                modifier = Modifier.fillMaxSize()
-            )
+            ProductImage(product.id)
         }
+    }
+
+
+}
+
+@Composable
+fun ProductImage(productId: Int) {
+    val imageRes = getImageResourceByProductId(productId)
+    Image(
+        painter = painterResource(id = imageRes),
+        contentDescription = "Product Image",
+        modifier = Modifier
+            .fillMaxWidth(),
+    )
+}
+
+fun getImageResourceByProductId(productId: Int): Int {
+    return when (productId) {
+        96 -> R.drawable.slider_1
+        else -> R.drawable.slider_1
     }
 }

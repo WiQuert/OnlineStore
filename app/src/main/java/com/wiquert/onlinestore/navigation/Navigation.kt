@@ -1,12 +1,10 @@
 package com.wiquert.onlinestore.navigation
 
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -30,15 +28,17 @@ import com.wiquert.onlinestore.screens.HomeScreen
 import com.wiquert.onlinestore.screens.ProductDetailScreen
 import com.wiquert.onlinestore.screens.ProfileScreen
 import com.wiquert.onlinestore.screens.ShopsScreen
+import com.wiquert.onlinestore.ui.theme.BNavColor
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigation() {
     val navController = rememberNavController()
+
     Scaffold(
         bottomBar = {
-            NavigationBar {
+            NavigationBar(containerColor = BNavColor) {
 
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
@@ -77,8 +77,7 @@ fun BottomNavigation() {
         NavHost(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .background(MaterialTheme.colorScheme.background),
+                .padding(innerPadding),
             navController = navController,
             startDestination = BottomNavItems[0].route
         ) {
