@@ -281,7 +281,7 @@ fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel(), navContr
 // section "slider"
 @Composable
 fun ProductSlider(viewModel: MainViewModel = hiltViewModel(), navController: NavController) {
-    val productsSlider = listOf(96,96,96,96).mapNotNull { ids ->
+    val productsSlider = listOf(96,114,96,96).mapNotNull { ids ->
         viewModel.getProductById(ids)
     }
     val sliderState = rememberPagerState(pageCount = { productsSlider.size })
@@ -321,6 +321,7 @@ fun ProductImage(productId: Int) {
 fun getImageResourceByProductId(productId: Int): Int {
     return when (productId) {
         96 -> R.drawable.slider_1
+        114 -> R.drawable.slider_2
         else -> R.drawable.slider_1
     }
 }
