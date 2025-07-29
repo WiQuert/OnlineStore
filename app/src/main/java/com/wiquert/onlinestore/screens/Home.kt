@@ -318,6 +318,7 @@ fun ProductImage(productId: Int) {
     )
 }
 
+
 fun getImageResourceByProductId(productId: Int): Int {
     return when (productId) {
         96 -> R.drawable.slider_1
