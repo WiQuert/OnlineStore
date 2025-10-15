@@ -6,11 +6,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -20,6 +22,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -28,7 +31,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -36,9 +38,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -75,17 +78,20 @@ fun HomeScreen(navController: NavController) {
         }
         Scaffold(
             topBar = {
-                HomeSearchBar(
-                    navController = navController,
-                    isActive = isSearchActive
-                )
+                    Box(modifier = Modifier.offset(y = (-25).dp)) {
+                        HomeSearchBar(
+                            navController = navController,
+                            isActive = isSearchActive
+                        )
+                    }
             }
-        ) { innerPadding ->
+        )
+        { innerPadding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .padding(paddingValues = innerPadding)
                     .verticalScroll(scrollState)
-                    .padding(innerPadding)
             ) {
                 HeaderText(stringResource(id = R.string.mainscreen_interesting_products))
                 Box(
@@ -107,13 +113,14 @@ fun HomeScreen(navController: NavController) {
                 }
             }
         }
-    }
+     }
 }
 
 
 
 //SearchBar
 @Composable
+
 @ExperimentalMaterial3Api
 fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltViewModel(), isActive: MutableState<Boolean>) {
 
@@ -128,8 +135,7 @@ fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltV
         SearchBar(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 10.dp)
-                .background(MaterialTheme.colorScheme.background),
+               .background(MaterialTheme.colorScheme.background),
             colors = SearchBarDefaults.colors(
                 containerColor = MaterialTheme.colorScheme.primary),
             inputField = {
@@ -295,17 +301,36 @@ fun ProductSlider(viewModel: MainViewModel = hiltViewModel(), navController: Nav
         val product = productsSlider[element]
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .clickable {
                     navController.navigate("product/${product.id}")
                 }
         ) {
             ProductImage(product.id)
+
+                //slider indicators (dots)
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)  // снизу по центру
+                    .padding(bottom = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                for (indicator in 0 until productsSlider.size) {
+                    val isSelected = sliderState.currentPage == indicator
+                    Box(
+                        modifier = Modifier
+                            .size(8.dp)
+                            .clip(CircleShape)
+                            .background(if (isSelected) Color.Black else Color.Gray)
+                    )
+                }
+            }
         }
-    }
-
-
+        }
 }
+
+
+
 
 @Composable
 fun ProductImage(productId: Int) {
