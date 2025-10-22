@@ -1,4 +1,4 @@
-package com.wiquert.onlinestore.screens
+package com.wiquert.onlinestore.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,6 +23,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -41,7 +42,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -131,13 +131,14 @@ fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltV
     val isLoading = viewModel.isSearching.value
 
 
-
         SearchBar(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 10.dp)
                .background(MaterialTheme.colorScheme.background),
             colors = SearchBarDefaults.colors(
                 containerColor = MaterialTheme.colorScheme.primary),
+            shape = RoundedCornerShape(12.dp),
             inputField = {
                 SearchBarDefaults.InputField(
                     query = searchText.value,
@@ -214,22 +215,6 @@ fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltV
         }
     }
 
-
-
-//Headers
-@Composable
-fun HeaderText(text: String) {
-    Spacer(modifier = Modifier.height(5.dp))
-    Text(modifier = Modifier.fillMaxWidth()
-        .padding(top = 12.dp, bottom = 12.dp),
-        text = text,
-        color = Color(0xFF326BCE),
-        fontSize = 26.sp,
-        textAlign = TextAlign.Center,
-        fontWeight = FontWeight.Bold
-    )
-    Spacer(modifier = Modifier.height(5.dp))
-}
 
 
 // section "this might be interesting"
@@ -330,6 +315,27 @@ fun ProductSlider(viewModel: MainViewModel = hiltViewModel(), navController: Nav
 }
 
 
+// Section "Our advantages"
+@Composable
+fun OurAdvantages() {
+
+}
+
+
+//Headers
+@Composable
+fun HeaderText(text: String) {
+    Spacer(modifier = Modifier.height(5.dp))
+    Text(modifier = Modifier.fillMaxWidth()
+        .padding(top = 12.dp, bottom = 12.dp),
+        text = text,
+        color = Color(0xFF326BCE),
+        fontSize = 26.sp,
+        textAlign = TextAlign.Center,
+        fontWeight = FontWeight.Bold
+    )
+    Spacer(modifier = Modifier.height(5.dp))
+}
 
 
 @Composable

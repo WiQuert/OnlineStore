@@ -24,7 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import com.wiquert.onlinestore.R
 import com.wiquert.onlinestore.screens.CartScreen
 import com.wiquert.onlinestore.screens.CatalogScreen
-import com.wiquert.onlinestore.screens.HomeScreen
+import com.wiquert.onlinestore.screens.home.HomeScreen
 import com.wiquert.onlinestore.screens.ProductDetailScreen
 import com.wiquert.onlinestore.screens.ProfileScreen
 import com.wiquert.onlinestore.screens.ShopsScreen
