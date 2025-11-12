@@ -53,8 +53,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil3.Image
 import coil3.compose.AsyncImage
 import com.wiquert.onlinestore.R
+import com.wiquert.onlinestore.screens.home.model.Advantage
+import com.wiquert.onlinestore.screens.home.model.advantagesList
 import com.wiquert.onlinestore.viewmodel.MainViewModel
 
 
@@ -110,6 +113,13 @@ fun HomeScreen(navController: NavController) {
                         .height(LocalConfiguration.current.screenHeightDp.dp * 0.35f)
                 ) {
                     ProductSlider(navController = navController)
+                }
+                HeaderText("Our advantages")
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .width(LocalConfiguration.current.screenWidthDp.dp * 0.8f)
+                ) {
+                    OurAdvantages(advantagesList)
                 }
             }
         }
@@ -217,7 +227,7 @@ fun HomeSearchBar(navController: NavController, viewModel: MainViewModel = hiltV
 
 
 
-// section "this might be interesting"
+// Section "This might be interesting"
 @Composable
 fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel(), navController: NavController) {
     val interestingProduct = viewModel.interestingProducts.value
@@ -269,7 +279,7 @@ fun ShowInterestingProducts(viewModel: MainViewModel = hiltViewModel(), navContr
 }
 
 
-// section "slider"
+// Section "Slider"
 @Composable
 fun ProductSlider(viewModel: MainViewModel = hiltViewModel(), navController: NavController) {
     val productsSlider = listOf(96,114,88,78).mapNotNull { ids ->
@@ -315,14 +325,32 @@ fun ProductSlider(viewModel: MainViewModel = hiltViewModel(), navController: Nav
 }
 
 
+
 // Section "Our advantages"
 @Composable
-fun OurAdvantages() {
+fun AdvantageItem(item: Advantage) {
+    Row(modifier = Modifier.fillMaxWidth()) {
+        Image(modifier = Modifier.size(40.dp),
+            painter = painterResource(id = item.icon),
+            contentDescription = item.title)
+        Spacer(modifier = Modifier.width(10.dp))
+        Column{
+            Text(text = item.title)
+            Text(text = item.description)
+        }
+    }
+}
 
+@Composable
+fun OurAdvantages(items: List<Advantage>) {
+    Column {
+        items.forEach { AdvantageItem(item = it) }
+    }
 }
 
 
-//Headers
+
+// Headers
 @Composable
 fun HeaderText(text: String) {
     Spacer(modifier = Modifier.height(5.dp))
@@ -338,6 +366,8 @@ fun HeaderText(text: String) {
 }
 
 
+
+// Get product image
 @Composable
 fun ProductImage(productId: Int) {
     val imageRes = getImageResourceByProductId(productId)
@@ -348,7 +378,6 @@ fun ProductImage(productId: Int) {
             .fillMaxWidth(),
     )
 }
-
 
 fun getImageResourceByProductId(productId: Int): Int {
     return when (productId) {
