@@ -109,8 +109,8 @@ fun HomeScreen(navController: NavController) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .background(color = Color.Red)
                         .width(LocalConfiguration.current.screenWidthDp.dp * 0.8f)
-                        .height(LocalConfiguration.current.screenHeightDp.dp * 0.35f)
                 ) {
                     ProductSlider(navController = navController)
                 }
@@ -329,13 +329,18 @@ fun ProductSlider(viewModel: MainViewModel = hiltViewModel(), navController: Nav
 // Section "Our advantages"
 @Composable
 fun AdvantageItem(item: Advantage) {
-    Row(modifier = Modifier.fillMaxWidth()) {
-        Image(modifier = Modifier.size(40.dp),
+    Row(modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically) {
+        Image(modifier = Modifier.size(70.dp).padding(all = 7.dp),
             painter = painterResource(id = item.icon),
             contentDescription = item.title)
         Spacer(modifier = Modifier.width(10.dp))
-        Column{
-            Text(text = item.title)
+        Column(modifier = Modifier.padding(vertical = 5.dp)){
+            Text(
+                text = item.title,
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.size(5.dp))
             Text(text = item.description)
         }
     }
